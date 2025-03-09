@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+	<id>plura</id>
+	<name>Plura</name>
+	<summary>Plural Management Document Editing App</summary>
+	<description>Applies the Plural Management model to collaborative document editing.</description>
+	<version>1.0.0</version>
+	<licence>agpl</licence>
+	<author mail="bastinjafari@gmail.com" homepage="https://github.com/SocialResonance">Bastin Jafari</author>
+	<namespace>Plura</namespace>
+	<category>customization</category>
+	<category>dashboard</category>
+	<category>files</category>
+	<category>integration</category>
+	<category>office</category>
+	<category>organization</category>
+	<category>social</category>
+	<category>tools</category>
+	<category>workflow</category>
+	<bugs>https://github.com/SocialResonance/Plura/issues</bugs>
+	<dependencies>
+		<nextcloud min-version="29" max-version="29"/>
+	</dependencies>
+	<navigations>
+		<navigation>
+			<id>plura</id>
+			<name>Plura</name>
+			<route>plura.page.index</route>
+			<icon>app.svg</icon>
+			<type>link</type>
+		</navigation>
+	</navigations>
+</info>

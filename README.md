@@ -1,42 +1,25 @@
 # Plura
 
-**Collaborative document editing powered by community wisdom**
+A template to get started with Nextcloud app development.
 
+## Usage
 
+- To get started easily use the [Appstore App generator](https://apps.nextcloud.com/developer/apps/generate) to
+  dynamically generate an App based on this repository with all the constants prefilled.
+- Alternatively you can use the "Use this template" button on the top of this page to create a new repository based on
+  this repository. Afterwards adjust all the necessary constants like App ID, namespace, descriptions etc.
 
-## What is Plura?
+Once your app is ready follow the [instructions](https://nextcloudappstore.readthedocs.io/en/latest/developer.html) to
+upload it to the Appstore.
 
-Plura is a NextCloud app that reimagines collaborative document editing through the lens of Plural Management. Instead of relying on rigid hierarchies or chaotic free-for-alls, Plura creates a merit-based system where influence is earned through contributions and community alignment.
+## Resources
 
-## How It Works
+### Documentation for developers:
 
-Plura introduces a two-stage approach to document editing:
+- General documentation and tutorials: https://nextcloud.com/developer
+- Technical documentation: https://docs.nextcloud.com/server/latest/developer_manual
 
-### 1. Edit Proposal: Identifying What Needs Changing
+### Help for developers:
 
-- Anyone can propose an "Edit proposal" – a description of what should be changed in a document
-- Community members allocate "management credits" to proposal they find important
-- The more support an proposal receives, the higher its priority
-- Popular proposal attract more attention and implementation efforts
-
-### 2. Edit Implementation: Proposing Concrete Changes
-
-- Users can create an "Edit Implementation" that address specific proposal
-- Multiple implementations can be proposed for a single proposal
-- The community votes to approve or reject each implementation
-- When approved, the implementation is applied and the contributor is rewarded
-
-## The Credit System
-
-Plura uses a virtual credit system to measure and reward participation:
-
-- **Earning credits**: 
-  - Submit implementations that get approved
-  - Correctly predict voting outcomes
-  - Initial credits are provided to new users
-
-- **Spending credits**:
-  - Fund edit proposal you find important
-  - Vote on proposed implementations
-  - Predict vote outcomes (which can earn you more credits)
-
+- Official community chat: https://cloud.nextcloud.com/call/xs25tz5y
+- Official community forum: https://help.nextcloud.com/c/dev/11
