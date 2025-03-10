@@ -6,7 +6,8 @@
     "allowJs": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "strict": true
+    "strict": true,
+    "baseUrl": ".."
   },
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "../cypress.d.ts"]
 }
