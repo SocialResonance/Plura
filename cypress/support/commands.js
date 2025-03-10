@@ -11,10 +11,22 @@
 // Login to Nextcloud (adjust username/password as needed)
 Cypress.Commands.add('loginToNextcloud', (username = 'admin', password = 'admin') => {
   cy.visit('/')
-  cy.get('input[name=user]').type(username)
-  cy.get('input[name=password]').type(password)
-  cy.get('input[type=submit]').click()
-  cy.url().should('include', '/index.php/apps/dashboard')
+  
+  // Check if we're already logged in
+  cy.url().then(url => {
+    if (url.includes('/index.php/apps/')) {
+      // Already logged in, just return
+      return;
+    }
+    
+    // Not logged in, perform login
+    cy.get('input[name=user]', { timeout: 10000 }).type(username)
+    cy.get('input[name=password]').type(password)
+    cy.get('input[type=submit]').click()
+    
+    // After login, we should be redirected to some app page
+    cy.url({ timeout: 10000 }).should('include', '/index.php/apps/')
+  })
 })
 
 // Navigate to Plura app

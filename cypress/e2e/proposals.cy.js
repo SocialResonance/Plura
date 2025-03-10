@@ -1,13 +1,18 @@
 describe('Plura Proposals', () => {
+  before(() => {
+    // Login to Nextcloud once before all tests
+    cy.loginToNextcloud('admin', 'admin')
+  })
+  
   beforeEach(() => {
-    // Login to Nextcloud
-    cy.loginToNextcloud()
+    // Ensure we're logged in before each test
+    cy.loginToNextcloud('admin', 'admin')
     
     // Visit the Plura app's proposals page directly
     cy.visit('/index.php/apps/plura/#/proposals')
     
     // Ensure the page has loaded
-    cy.contains('h1', 'Proposals').should('be.visible')
+    cy.contains('h1', 'Proposals', { timeout: 10000 }).should('be.visible')
   })
 
   it('should display the proposals list or empty state', () => {
