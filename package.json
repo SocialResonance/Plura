@@ -19,7 +19,7 @@
     "test:e2e:watch": "cypress open",
     "test:tdd": "cypress open --e2e --browser chrome",
     "test:ci": "cypress run --headless",
-    "test:ci:debug": "cypress run --headless --config failOnStatusCode=false",
+    "test:ci:debug": "cypress run --headless --no-exit",
     "tdd": "concurrently \"npm run watch\" \"npm run test:tdd\""
   },
   "browserslist": [
