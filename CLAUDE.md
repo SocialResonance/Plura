@@ -14,9 +14,8 @@
 - Compile CSS: `cd workspace/server && npm run sass`
 
 ## Cypress Testing Commands
-- Open Cypress test runner: `npm run test:tdd`
 - Run Cypress tests headless: `npm run test:ci`
-- TDD workflow (watch + tests): `npm run tdd`
+- TDD workflow (lint + tests): `npm run lint && npm run test:ci`
 
 ### Testing Workflow Guidelines
 - **Always run tests before making changes**: Before modifying code or converting files, run the tests first to establish a baseline
