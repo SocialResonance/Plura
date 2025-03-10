@@ -10,10 +10,10 @@
                 
                 <div class="proposals-sorting">
                     <label>{{ t('plura', 'Sort by:') }}</label>
-                    <select v-model="sortBy" @change="loadProposals">
-                        <option value="priority" data-cy="sort-by-priority">{{ t('plura', 'Priority') }}</option>
-                        <option value="created_at" data-cy="sort-by-newest">{{ t('plura', 'Newest') }}</option>
-                        <option value="deadline" data-cy="sort-by-deadline">{{ t('plura', 'Deadline') }}</option>
+                    <select v-model="sortBy" @change="loadProposals" data-cy="sort-select">
+                        <option value="priority">{{ t('plura', 'Priority') }}</option>
+                        <option value="created_at">{{ t('plura', 'Newest') }}</option>
+                        <option value="deadline">{{ t('plura', 'Deadline') }}</option>
                     </select>
                 </div>
             </div>
@@ -136,6 +136,7 @@
                                 :key="doc.id" 
                                 :value="doc.id" 
                                 class="document-option"
+                                data-cy="document-option"
                             >
                                 {{ doc.name }}
                             </option>
