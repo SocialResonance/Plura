@@ -5,7 +5,7 @@
 	<name>Plura</name>
 	<summary>Plural Management Document Editing App</summary>
 	<description>Applies the Plural Management model to collaborative document editing.</description>
-	<version>1.1.0</version>
+	<version>1.2.0</version>
 	<licence>agpl</licence>
 	<author mail="bastinjafari@gmail.com" homepage="https://github.com/SocialResonance">Bastin Jafari</author>
 	<namespace>Plura</namespace>

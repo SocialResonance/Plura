@@ -6,6 +6,7 @@ namespace OCA\Plura\Controller;
 
 use OCA\Plura\Service\CreditService;
 use OCA\Plura\Service\ParameterService;
+use OCA\Plura\Service\ProposalService;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\ApiRoute;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
@@ -21,6 +22,9 @@ class ApiController extends OCSController {
     /** @var ParameterService */
     private $parameterService;
     
+    /** @var ProposalService */
+    private $proposalService;
+    
     /** @var IUserSession */
     private $userSession;
 
@@ -29,11 +33,13 @@ class ApiController extends OCSController {
         IRequest $request,
         CreditService $creditService,
         ParameterService $parameterService,
+        ProposalService $proposalService,
         IUserSession $userSession
     ) {
         parent::__construct($appName, $request);
         $this->creditService = $creditService;
         $this->parameterService = $parameterService;
+        $this->proposalService = $proposalService;
         $this->userSession = $userSession;
     }
 
@@ -103,6 +109,147 @@ class ApiController extends OCSController {
         try {
             $params = $this->parameterService->getSystemParameters();
             return new DataResponse($params);
+        } catch (\Exception $e) {
+            return new DataResponse(
+                ['error' => $e->getMessage()],
+                Http::STATUS_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+    
+    /**
+     * Get all proposals
+     * 
+     * @param int $limit
+     * @param int $offset
+     * @param string $orderBy
+     * @param string $orderDirection
+     * @return DataResponse
+     */
+    #[NoAdminRequired]
+    #[ApiRoute(verb: 'GET', url: '/api/proposals')]
+    public function getProposals(int $limit = 50, int $offset = 0, string $orderBy = 'credits_allocated', string $orderDirection = 'DESC'): DataResponse {
+        try {
+            $proposals = $this->proposalService->getAllProposals($limit, $offset, $orderBy, $orderDirection);
+            return new DataResponse($proposals);
+        } catch (\Exception $e) {
+            return new DataResponse(
+                ['error' => $e->getMessage()],
+                Http::STATUS_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+    
+    /**
+     * Get a specific proposal
+     * 
+     * @param int $id
+     * @return DataResponse
+     */
+    #[NoAdminRequired]
+    #[ApiRoute(verb: 'GET', url: '/api/proposals/{id}')]
+    public function getProposal(int $id): DataResponse {
+        try {
+            $proposal = $this->proposalService->getProposal($id);
+            return new DataResponse($proposal);
+        } catch (\Exception $e) {
+            return new DataResponse(
+                ['error' => $e->getMessage()],
+                Http::STATUS_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+    
+    /**
+     * Create a new proposal
+     * 
+     * @param string $title
+     * @param string $description
+     * @param string $documentId
+     * @param string|null $deadline ISO date string
+     * @return DataResponse
+     */
+    #[NoAdminRequired]
+    #[ApiRoute(verb: 'POST', url: '/api/proposals')]
+    public function createProposal(string $title, string $description, string $documentId, ?string $deadline = null): DataResponse {
+        try {
+            $deadlineDate = null;
+            if ($deadline !== null) {
+                $deadlineDate = new \DateTime($deadline);
+            }
+            
+            $proposal = $this->proposalService->createProposal($title, $description, $documentId, $deadlineDate);
+            return new DataResponse($proposal);
+        } catch (\Exception $e) {
+            return new DataResponse(
+                ['error' => $e->getMessage()],
+                Http::STATUS_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+    
+    /**
+     * Update a proposal
+     * 
+     * @param int $id
+     * @param string $title
+     * @param string $description
+     * @param string $status
+     * @param string|null $deadline ISO date string
+     * @return DataResponse
+     */
+    #[NoAdminRequired]
+    #[ApiRoute(verb: 'PUT', url: '/api/proposals/{id}')]
+    public function updateProposal(int $id, string $title, string $description, string $status, ?string $deadline = null): DataResponse {
+        try {
+            $deadlineDate = null;
+            if ($deadline !== null) {
+                $deadlineDate = new \DateTime($deadline);
+            }
+            
+            $proposal = $this->proposalService->updateProposal($id, $title, $description, $status, $deadlineDate);
+            return new DataResponse($proposal);
+        } catch (\Exception $e) {
+            return new DataResponse(
+                ['error' => $e->getMessage()],
+                Http::STATUS_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+    
+    /**
+     * Get detailed information about a proposal
+     * 
+     * @param int $id
+     * @return DataResponse
+     */
+    #[NoAdminRequired]
+    #[ApiRoute(verb: 'GET', url: '/api/proposals/{id}/details')]
+    public function getProposalDetails(int $id): DataResponse {
+        try {
+            $details = $this->proposalService->getProposalDetails($id);
+            return new DataResponse($details);
+        } catch (\Exception $e) {
+            return new DataResponse(
+                ['error' => $e->getMessage()],
+                Http::STATUS_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+    
+    /**
+     * Allocate credits to a proposal
+     * 
+     * @param int $id
+     * @param float $amount
+     * @return DataResponse
+     */
+    #[NoAdminRequired]
+    #[ApiRoute(verb: 'POST', url: '/api/proposals/{id}/allocate')]
+    public function allocateCredits(int $id, float $amount): DataResponse {
+        try {
+            $result = $this->proposalService->allocateCredits($id, $amount);
+            return new DataResponse($result);
         } catch (\Exception $e) {
             return new DataResponse(
                 ['error' => $e->getMessage()],
