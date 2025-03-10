@@ -1,6 +1,47 @@
-# Plura App Test-Driven Development with Cypress
+# Cypress Testing for Plura
 
-This directory contains end-to-end tests for the Plura app using Cypress.
+This directory contains the end-to-end tests for the Plura app using Cypress.
+
+## Authentication
+
+Tests use an optimized login command with session caching for better performance. The implementation follows the official [Cypress documentation on optimizing login](https://docs.cypress.io/guides/end-to-end-testing/testing-your-app#Logging-in).
+
+### Using the Login Command
+
+```javascript
+// Simple login with default credentials (admin/admin)
+cy.loginToNextcloud()
+
+// Login with custom credentials
+cy.loginToNextcloud('username', 'password')
+```
+
+### How It Works
+
+The login command uses Cypress's session feature to cache the authentication state between tests:
+
+1. It stores the session data based on the username and password
+2. Login is performed only once for a given set of credentials
+3. Session validation ensures the authentication is still valid before reusing it
+4. Sessions are cached across spec files for maximum performance
+
+### Benefits
+
+- **Faster Tests**: Login happens only once instead of before each test
+- **More Reliable**: Reduces flakiness by minimizing authentication steps
+- **Cross-Spec Caching**: Authentication state is preserved across different test files
+
+## Test Commands
+
+The following custom commands are available for testing:
+
+- `cy.loginToNextcloud(username, password)` - Log in to Nextcloud with session caching
+- `cy.goToPluraApp()` - Navigate to the Plura app
+- `cy.createProposal(title, description)` - Create a new proposal
+- `cy.createImplementation(content)` - Create a new implementation for the first proposal
+- `cy.allocateCredits(amount)` - Allocate credits to a proposal
+- `cy.voteOnImplementation(index, voteType, weight)` - Vote on an implementation
+- `cy.makeVotePrediction(index, amount)` - Make a prediction on an implementation vote
 
 ## Test-Driven Development (TDD) Workflow
 
@@ -30,18 +71,6 @@ npm run tdd
   - `proposals.cy.js` - Tests for proposal creation and management
   - `implementations.cy.js` - Tests for implementation submission and voting
   - `user-credits.cy.js` - Tests for user credit functionality
-
-## Custom Commands
-
-We've created several custom Cypress commands to make testing easier:
-
-- `cy.loginToNextcloud(username, password)` - Logs in to Nextcloud
-- `cy.goToPluraApp()` - Navigates to the Plura app
-- `cy.createProposal(title, description)` - Creates a new proposal
-- `cy.createImplementation(content)` - Creates a new implementation
-- `cy.allocateCredits(amount)` - Allocates credits to a proposal
-- `cy.voteOnImplementation(index, voteType, weight)` - Votes on an implementation
-- `cy.makeVotePrediction(index, amount)` - Makes a prediction on an implementation
 
 ## Best Practices
 
