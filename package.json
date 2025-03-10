@@ -11,6 +11,7 @@
     "dev": "NODE_ENV=development webpack --config webpack.js --progress",
     "watch": "NODE_ENV=development webpack --config webpack.js --progress --watch",
     "lint": "eslint src",
+    "lint:ts": "tsc --noEmit",
     "stylelint": "stylelint src/**/*.vue src/**/*.scss src/**/*.css",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
@@ -18,6 +19,7 @@
     "test:e2e:watch": "cypress open",
     "test:tdd": "cypress open --e2e --browser chrome",
     "test:ci": "cypress run --headless",
+    "test:ci:debug": "cypress run --headless --config failOnStatusCode=false",
     "tdd": "concurrently \"npm run watch\" \"npm run test:tdd\""
   },
   "browserslist": [
@@ -35,9 +37,11 @@
     "@nextcloud/eslint-config": "^8.3.0",
     "@nextcloud/stylelint-config": "^2.4.0",
     "@nextcloud/webpack-vue-config": "^6.0.1",
+    "@types/node": "^20.11.0",
     "concurrently": "^9.1.2",
     "cypress": "^13.17.0",
     "eslint-webpack-plugin": "^4.1.0",
-    "stylelint-webpack-plugin": "^5.0.0"
+    "stylelint-webpack-plugin": "^5.0.0",
+    "typescript": "^5.3.3"
   }
 }
