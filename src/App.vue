@@ -4,16 +4,21 @@
 			<template #list>
 				<NcAppNavigationItem :name="t('plura', 'Dashboard')" :to="{name: 'dashboard'}" icon="icon-dashboard" />
 				<NcAppNavigationItem :name="t('plura', 'Proposals')" :to="{name: 'proposals'}" icon="icon-projects" />
-				<NcAppNavigationItem :name="t('plura', 'Credit History')" :to="{name: 'credits'}" icon="icon-category-app-integration" data-cy="credit-history-link" />
+				<NcAppNavigationItem :name="t('plura', 'Credit History')"
+					:to="{name: 'credits'}"
+					icon="icon-category-app-integration"
+					data-cy="credit-history-link" />
 			</template>
 			<template #footer>
 				<div class="plura-credits-display">
 					<h3>{{ t('plura', 'Your Credits') }}</h3>
-					<div class="plura-credit-balance" data-cy="user-credit-balance">{{ formatNumber(userCredits) }}</div>
+					<div class="plura-credit-balance" data-cy="user-credit-balance">
+						{{ formatNumber(userCredits) }}
+					</div>
 				</div>
 			</template>
 		</NcAppNavigation>
-		
+
 		<NcAppContent>
 			<router-view />
 		</NcAppContent>
@@ -48,16 +53,16 @@ export default {
 		if (container) {
 			const userCredits = container.dataset.userCredits
 			const matchingFund = container.dataset.matchingFund
-			
+
 			if (userCredits) {
 				this.userCredits = parseFloat(userCredits)
 			}
-			
+
 			if (matchingFund) {
 				this.matchingFundTotal = parseFloat(matchingFund)
 			}
 		}
-		
+
 		// Fetch credits from API
 		this.fetchUserCredits()
 	},
@@ -76,8 +81,8 @@ export default {
 					this.error = t('plura', 'Failed to load credit data')
 					this.loading = false
 				})
-		}
-	}
+		},
+	},
 }
 </script>
 
@@ -86,12 +91,12 @@ export default {
 	padding: 10px;
 	border-top: 1px solid var(--color-border);
 	text-align: center;
-	
+
 	h3 {
 		margin-bottom: 5px;
 		font-weight: bold;
 	}
-	
+
 	.plura-credit-balance {
 		font-size: 18px;
 		font-weight: bold;

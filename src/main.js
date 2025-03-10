@@ -13,19 +13,19 @@ Vue.mixin({ methods: { t, n } })
 Vue.use(VueRouter)
 
 const routes = [
-    { path: '/', redirect: '/dashboard' },
-    { path: '/dashboard', name: 'dashboard', component: Dashboard },
-    { path: '/proposals', name: 'proposals', component: Proposals },
-    { path: '/credits', name: 'credits', component: CreditHistory },
+	{ path: '/', redirect: '/dashboard' },
+	{ path: '/dashboard', name: 'dashboard', component: Dashboard },
+	{ path: '/proposals', name: 'proposals', component: Proposals },
+	{ path: '/credits', name: 'credits', component: CreditHistory },
 ]
 
 const router = new VueRouter({
-    routes,
-    base: generateUrl('/apps/plura/')
+	routes,
+	base: generateUrl('/apps/plura/'),
 })
 
 // Create the Vue instance
 const View = Vue.extend(App)
 new View({
-    router
+	router,
 }).$mount('#plura')

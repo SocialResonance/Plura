@@ -12,6 +12,7 @@
     "watch": "NODE_ENV=development webpack --config webpack.js --progress --watch",
     "lint": "eslint src",
     "lint:ts": "tsc --noEmit",
+    "lint:fix": "eslint src --fix",
     "stylelint": "stylelint src/**/*.vue src/**/*.scss src/**/*.css",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
